@@ -1,4 +1,4 @@
-package com.example.primaprova;
+package com.example.multa;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

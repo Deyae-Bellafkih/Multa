@@ -1,19 +1,27 @@
-package com.example.primaprova;
+package com.example.multa;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.time.LocalDate;
+
 public class HelloController {
 
     @FXML
-    private TextField txtInserisci;
+    private TextField txtNominativo;
 
     @FXML
-    private TextField txtCerca;
+    private TextField txtDocumento;
 
     @FXML
-    private TextField txtNuovo;
+    private TextField txtNumeroDocumento;
+
+    @FXML
+    private TextField txtRilascio;
+
+    @FXML
+    private TextField txtScadenza;
 
     @FXML
     private TextArea txtOutput;
@@ -23,13 +31,18 @@ public class HelloController {
     @FXML
     protected void onAggiungiClick() {
 
-        String valore = txtInserisci.getText();
+        String nominativo = txtNominativo.getText();
+        String documento = txtDocumento.getText();
+        String numero = txtNumeroDocumento.getText();
 
-        if (!valore.isEmpty()) {
-            lista.aggiungi(valore);
-            txtOutput.setText("Elemento aggiunto!\n");
-            txtInserisci.clear();
-        }
+        LocalDate rilascio = LocalDate.parse(txtRilascio.getText());
+        LocalDate scadenza = LocalDate.parse(txtScadenza.getText());
+
+        Multa multa = new Multa(nominativo, documento, numero, rilascio, scadenza);
+
+        lista.aggiungi(multa);
+
+        txtOutput.setText("Multa aggiunta!\n");
     }
 
     @FXML
@@ -38,52 +51,10 @@ public class HelloController {
         txtOutput.clear();
         lista.resetIteratore();
 
-        String valore;
+        Multa multa;
 
-        while ((valore = lista.visita()) != null) {
-            txtOutput.appendText(valore + "\n");
+        while ((multa = lista.visita()) != null) {
+            txtOutput.appendText(multa.toString() + "\n\n");
         }
-    }
-
-    @FXML
-    protected void onCercaClick() {
-
-        String valore = txtCerca.getText();
-
-        if (lista.cerca(valore)) {
-            txtOutput.setText("Elemento trovato!\n");
-        } else {
-            txtOutput.setText("Elemento non trovato.\n");
-        }
-    }
-
-    @FXML
-    protected void onModificaClick() {
-
-        String vecchio = txtCerca.getText();
-        String nuovo = txtNuovo.getText();
-
-        if (lista.modifica(vecchio, nuovo)) {
-            txtOutput.setText("Modifica effettuata!\n");
-        } else {
-            txtOutput.setText("Elemento non trovato.\n");
-        }
-
-        txtCerca.clear();
-        txtNuovo.clear();
-    }
-
-    @FXML
-    protected void onEliminaClick() {
-
-        String valore = txtCerca.getText();
-
-        if (lista.elimina(valore)) {
-            txtOutput.setText("Elemento eliminato!\n");
-        } else {
-            txtOutput.setText("Elemento non trovato.\n");
-        }
-
-        txtCerca.clear();
     }
 }

@@ -1,4 +1,4 @@
-package com.example.primaprova;
+package com.example.multa;
 
 public class Lista {
 
@@ -10,9 +10,9 @@ public class Lista {
         cursor = null;
     }
 
-    public void aggiungi(String valore) {
+    public void aggiungi(Multa multa) {
 
-        Nodo nuovo = new Nodo(valore);
+        Nodo nuovo = new Nodo(multa);
 
         if (head == null) {
             head = nuovo;
@@ -28,13 +28,13 @@ public class Lista {
         temp.next = nuovo;
     }
 
-    public boolean cerca(String valore) {
+    public boolean cerca(String numeroDocumento) {
 
         Nodo temp = head;
 
         while (temp != null) {
 
-            if (temp.value.equals(valore)) {
+            if (temp.value.getNumeroDocumento().equals(numeroDocumento)) {
                 return true;
             }
 
@@ -44,29 +44,12 @@ public class Lista {
         return false;
     }
 
-    public boolean modifica(String vecchio, String nuovo) {
-
-        Nodo temp = head;
-
-        while (temp != null) {
-
-            if (temp.value.equals(vecchio)) {
-                temp.value = nuovo;
-                return true;
-            }
-
-            temp = temp.next;
-        }
-
-        return false;
-    }
-
-    public boolean elimina(String valore) {
+    public boolean elimina(String numeroDocumento) {
 
         if (head == null)
             return false;
 
-        if (head.value.equals(valore)) {
+        if (head.value.getNumeroDocumento().equals(numeroDocumento)) {
             head = head.next;
             return true;
         }
@@ -75,7 +58,7 @@ public class Lista {
 
         while (temp.next != null) {
 
-            if (temp.next.value.equals(valore)) {
+            if (temp.next.value.getNumeroDocumento().equals(numeroDocumento)) {
                 temp.next = temp.next.next;
                 return true;
             }
@@ -90,12 +73,12 @@ public class Lista {
         cursor = head;
     }
 
-    public String visita() {
+    public Multa visita() {
 
         if (cursor == null)
             return null;
 
-        String valore = cursor.value;
+        Multa valore = cursor.value;
         cursor = cursor.next;
 
         return valore;

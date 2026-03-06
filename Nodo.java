@@ -1,11 +1,11 @@
-package com.example.primaprova;
+package com.example.multa;
 
 public class Nodo {
 
-    String value;
+    Multa value;
     Nodo next;
 
-    public Nodo(String value) {
+    public Nodo(Multa value) {
         this.value = value;
         this.next = null;
     }
